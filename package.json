@@ -1,0 +1,25 @@
+{
+	"scripts": {
+		"dev": "NODE_ENV=dev tsx watch src/index.ts"
+	},
+	"dependencies": {
+		"@hono/node-server": "^1.8.2",
+		"@hono/zod-validator": "^0.2.0",
+		"@zodyac/zod-mongoose": "^1.1.2",
+		"dotenv": "^16.4.5",
+		"hono": "^4.0.9",
+		"mongoose": "^8.2.1",
+		"pino": "^8.19.0",
+		"pino-pretty": "^10.3.1",
+		"rxjs": "^7.8.1",
+		"sqlite": "^5.1.1",
+		"valtio": "^1.13.2",
+		"zod": "^3.22.4"
+	},
+	"devDependencies": {
+		"@hono/eslint-config": "^0.0.4",
+		"@types/node": "^20.11.17",
+		"prettier": "^3.2.5",
+		"tsx": "^3.12.2"
+	}
+}
