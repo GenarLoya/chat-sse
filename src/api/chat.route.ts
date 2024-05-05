@@ -2,11 +2,11 @@ import { Hono } from 'hono'
 import { streamSSE } from 'hono/streaming'
 import { subscribe } from 'valtio'
 import { usersProxy } from '../proxys/users.proxy'
-import type { TokenPayload } from '../types/token'
+import type { TTokenPayload } from '../types/token'
 
 export const chatRouter = new Hono<{
 	Variables: {
-		tokenPayload: TokenPayload
+		tokenPayload: TTokenPayload
 	}
 }>()
 

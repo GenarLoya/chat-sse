@@ -5,7 +5,7 @@ import { JwtTokenInvalid } from 'hono/utils/jwt/types'
 import { excludedPaths, tokenCookie } from '../constants/app.config'
 import type { TTokenPayload } from '../types/token'
 
-export const isAuthApi: MiddlewareHandler = async (c, next) => {
+export const isAuthPage: MiddlewareHandler = async (c, next) => {
 	try {
 		const token = getCookie(c, tokenCookie)
 
@@ -14,7 +14,7 @@ export const isAuthApi: MiddlewareHandler = async (c, next) => {
 		}
 
 		if (!token) {
-			return c.json({ msg: 'No token provided' }, 401)
+			return c.redirect('/page/login')
 		}
 
 		const payload: Promise<TTokenPayload> = await Jwt.verify(

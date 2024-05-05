@@ -1,8 +1,9 @@
 {
 	"scripts": {
 		"docker:deploy": "docker-compose up -d",
-		"dev": "NODE_ENV=dev npm run docker:deploy && tsx watch src/index.ts",
-		"start": "NODE_ENV=prod npm run docker:deploy && tsx src/index.ts",
+		"tailwindcss:build": "tailwindcss -i ./input.tailwind.css -o ./static/css/tailwind.css --watch --minify",
+		"dev": "npm run docker:deploy && NODE_ENV=dev  tsx watch src/index.ts & npm run tailwindcss:build",
+		"start": "npm run docker:deploy && NODE_ENV=prod  tsx src/index.ts",
 		"prettier": "prettier --write .",
 		"lint": "eslint --fix .",
 		"cz": "cz"
@@ -26,6 +27,7 @@
 		"@types/node": "^20.11.17",
 		"git-conventional-commits": "^2.6.7",
 		"prettier": "^3.2.5",
+		"tailwindcss": "^3.4.3",
 		"tsx": "^3.12.2"
 	}
 }

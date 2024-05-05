@@ -1,7 +1,7 @@
 import zodSchema from '@zodyac/zod-mongoose'
 import { Jwt } from 'hono/utils/jwt'
 import m from 'mongoose'
-import type { TypeUser } from '../validators/users.validator'
+import type { TUser } from '../validators/users.validator'
 import { zUser } from '../validators/users.validator'
 
 const userSchema = zodSchema(zUser)
@@ -9,15 +9,15 @@ const userSchema = zodSchema(zUser)
 export const UserModel = m.model('Users', userSchema)
 
 export interface IUser {
-	user: TypeUser
+	user: TUser
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	register: () => Promise<any>
 	login: () => Promise<string>
 }
 
 export class User implements IUser {
-	user: TypeUser
-	constructor(user: TypeUser) {
+	user: TUser
+	constructor(user: TUser) {
 		this.user = user
 	}
 
@@ -44,7 +44,12 @@ export class User implements IUser {
 			throw new ErrUserIncorrectLogin()
 		}
 
-		const token = Jwt.sign({ _id: user._id }, process.env.JWT_SECRET ?? '')
+		const token = await Jwt.sign(
+			{ _id: user._id },
+			process.env.JWT_SECRET ?? '',
+		)
+
+		console.log('token', token)
 
 		return token
 	}

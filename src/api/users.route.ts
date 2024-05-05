@@ -7,7 +7,7 @@ import {
 	ErrUserIncorrectLogin,
 	User,
 } from '../models/users.model'
-import type { TypeUser, TypeUserRegister } from '../validators/users.validator'
+import type { TUser, TUserRegister } from '../validators/users.validator'
 import { zUser, zUserRegister } from '../validators/users.validator'
 
 /** User Body Validator */
@@ -18,7 +18,7 @@ usersRouter.post(
 	'/register',
 	zValidator('json', zUserRegister),
 	async ({ req, json }) => {
-		const { name, pass }: TypeUserRegister = await req.json()
+		const { name, pass }: TUserRegister = await req.json()
 
 		try {
 			const newUser = new User({ name, pass })
@@ -52,11 +52,18 @@ usersRouter.post(
 const loginRoute = '/login'
 
 usersRouter.post(loginRoute, zValidator('json', zUser), async (c) => {
-	const { name, pass }: TypeUser = await c.req.json()
+	const { name, pass }: TUser = await c.req.json()
+
+	console.log('name', name)
+	console.log('pass', pass)
 
 	try {
 		const user = new User({ name, pass })
+		console.log('pass', pass)
+
 		const token = await user.login()
+
+		console.log('token', token)
 
 		setCookie(c, tokenCookie, token, {
 			path: '/',
@@ -79,6 +86,15 @@ usersRouter.post(loginRoute, zValidator('json', zUser), async (c) => {
 				400,
 			)
 		}
+
+		console.log('err', err)
+
+		return c.json(
+			{
+				msg: 'Internal server error',
+			},
+			500,
+		)
 	}
 })
 
