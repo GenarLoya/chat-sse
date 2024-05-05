@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "ES2015",
     "moduleResolution": "Bundler",
     "strict": true,
     "types": [
@@ -9,5 +9,6 @@
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
+    "outDir": "dist",
   }
 }
